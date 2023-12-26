@@ -7,33 +7,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-
+@RequestMapping("bakers")
 public class BakerController {
 
-    @Autowired
+
     private BakerService service;
 
+
+    @Autowired
     public BakerController(BakerService service) {
         this.service = service;
     }
 
 
-    @RequestMapping("/index")
+    @RequestMapping( value = "/index")
     public ResponseEntity<Iterable<Baker>> index() {
         return new ResponseEntity<>(service.index(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/BakerId", method = RequestMethod.GET)
+    @RequestMapping(value = "/{BakerId}", method = RequestMethod.GET)
     public ResponseEntity<Baker> show(@PathVariable(value = "BakerId") Long id) {
         return new ResponseEntity<>(service.show(id), HttpStatus.OK);
     }
 
-    @RequestMapping("/create")
-    public ResponseEntity<Baker> create(Baker baker) {
+    @RequestMapping()
+    public ResponseEntity<Baker> create(@RequestBody Baker baker) {
         return new ResponseEntity<>(service.create(baker), HttpStatus.CREATED);
     }
 

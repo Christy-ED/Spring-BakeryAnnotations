@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class BakerService {
 
-    @Autowired
+
     private BakerRepository repository;
 
+    @Autowired
     public BakerService(BakerRepository repository) {
         this.repository = repository;
     }
